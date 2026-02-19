@@ -46,23 +46,20 @@ def build_and_train():
     # Split data (just for evaluation)
     X_train, X_test = train_test_split(X_scaled, test_size=0.2, random_state=42)
     
-    # 3. Build Simple Autoencoder
+    # 3. Build Simple Autoencoder using Functional API (More stable across Keras versions)
     print("Building model...")
     input_dim = X_train.shape[1]
     
-    encoder = models.Sequential([
-        layers.Input(shape=(input_dim,)),
-        layers.Dense(8, activation='relu'),
-        layers.Dense(4, activation='relu') # Bottleneck
-    ])
+    # Encoder
+    inputs = layers.Input(shape=(input_dim,))
+    e1 = layers.Dense(8, activation='relu')(inputs)
+    bottleneck = layers.Dense(4, activation='relu')(e1)
     
-    decoder = models.Sequential([
-        layers.Dense(8, activation='relu', input_shape=(4,)),
-        layers.Dense(input_dim, activation='sigmoid')
-    ])
+    # Decoder
+    d1 = layers.Dense(8, activation='relu')(bottleneck)
+    outputs = layers.Dense(input_dim, activation='sigmoid')(d1)
     
-    autoencoder = models.Sequential([encoder, decoder])
-    
+    autoencoder = models.Model(inputs=inputs, outputs=outputs)
     autoencoder.compile(optimizer='adam', loss='mse')
     
     # 4. Train with less epochs
@@ -77,7 +74,7 @@ def build_and_train():
     
     # 5. Save Model and Preprocessing objects
     print("Saving model and artifacts...")
-    autoencoder.save('autoencoder_model.h5')
+    autoencoder.save('autoencoder_model.keras') # Use native Keras format
     joblib.dump(scaler, 'scaler.pkl')
     joblib.dump(label_encoders, 'label_encoders.pkl')
     
