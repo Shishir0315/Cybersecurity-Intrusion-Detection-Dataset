@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intrusion Detection System | Autoencoder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <h1>CYBER<span>GUARD</span> AI</h1>
+            </div>
+            <p>Real-time Intrusion Detection Dashboard</p>
+        </header>
+
+        <main>
+            <section class="prediction-card">
+                <div class="card-header">
+                    <h2>Traffic Analysis Input</h2>
+                    <p>Enter network session parameters to check for anomalies</p>
+                </div>
+                
+                <form id="prediction-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="network_packet_size">Packet Size (bytes)</label>
+                            <input type="number" id="network_packet_size" name="network_packet_size" value="500" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="protocol_type">Protocol</label>
+                            <select id="protocol_type" name="protocol_type">
+                                {% for item in dropdowns.protocol_type %}
+                                <option value="{{ item }}">{{ item }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_attempts">Login Attempts</label>
+                            <input type="number" id="login_attempts" name="login_attempts" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="session_duration">Duration (sec)</label>
+                            <input type="number" id="session_duration" name="session_duration" value="300" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="encryption_used">Encryption</label>
+                            <select id="encryption_used" name="encryption_used">
+                                {% for item in dropdowns.encryption_used %}
+                                <option value="{{ item }}">{{ item }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ip_reputation_score">IP Reputation (0-1)</label>
+                            <input type="number" step="0.01" id="ip_reputation_score" name="ip_reputation_score" value="0.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="failed_logins">Failed Logins</label>
+                            <input type="number" id="failed_logins" name="failed_logins" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="browser_type">Browser</label>
+                            <select id="browser_type" name="browser_type">
+                                {% for item in dropdowns.browser_type %}
+                                <option value="{{ item }}">{{ item }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="unusual_time_access">Unusual Time Access</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="unusual_time_access" value="0" checked> No</label>
+                                <label><input type="radio" name="unusual_time_access" value="1"> Yes</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" id="analyze-btn">
+                        <span class="btn-text">RECONSTRUCT & ANALYZE</span>
+                        <div class="loader-inner"></div>
+                    </button>
+                </form>
+            </section>
+
+            <section class="result-card hidden" id="result-view">
+                <div class="result-status" id="status-box">
+                    <div class="status-icon" id="status-icon">✅</div>
+                    <h3 id="status-text">NORMAL TRAFFIC</h3>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-label">MSE Error</span>
+                        <span class="stat-value" id="mse-val">0.0123</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Model Confidence</span>
+                        <span class="stat-value" id="conf-val">98.5%</span>
+                    </div>
+                </div>
+
+                <div class="threshold-marker">
+                    <p>Anomaly Threshold: 0.05 MSE</p>
+                    <div class="meter-bg">
+                        <div class="meter-fill" id="meter-fill"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2026 CyberGuard AI - Autoencoder Anomaly Detection</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
