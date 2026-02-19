@@ -28,5 +28,19 @@ This project implements an end-to-end Autoencoder model designed for cybersecuri
 - **Application**: Useful for anomaly detection by monitoring reconstruction error.
 
 ## How to use
-1. Run `py train_autoencoder.py` to retrain (optional).
-2. Run `py test_reconstruction.py` to see the model in action.
+### 1. Local Dashboard (Webpage)
+Run the dedicated Flask server to see the premium webpage dashboard:
+```powershell
+py run_local_webpage.py
+```
+Then open: **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
+
+### 2. Training (Optional)
+Run the training script to retrain the autoencoder:
+```powershell
+py train_autoencoder.py
+```
+
+### 3. Deployment
+- **Hugging Face**: Automatically deployed from this repository.
+- **GitHub**: Source code is synchronized.
