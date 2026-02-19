@@ -1,3 +1,14 @@
+---
+title: Cybersecurity Intrusion Detection
+emoji: 🛡️
+colorFrom: blue
+colorTo: cyan
+sdk: gradio
+sdk_version: 5.16.0
+app_file: app.py
+pinned: false
+---
+
 # Autoencoder for Cybersecurity Intrusion Detection
 
 This project implements an end-to-end Autoencoder model designed for cybersecurity data.
