@@ -74,7 +74,7 @@ def build_and_train():
     
     # 5. Save Model and Preprocessing objects
     print("Saving model and artifacts...")
-    autoencoder.save('autoencoder_model.keras') # Use native Keras format
+    autoencoder.save('autoencoder_model.h5') # H5 is often more robust for cross-version Functional models
     joblib.dump(scaler, 'scaler.pkl')
     joblib.dump(label_encoders, 'label_encoders.pkl')
     

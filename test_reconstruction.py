@@ -7,7 +7,7 @@ import os
 
 def test_model():
     print("Loading model and artifacts...")
-    model = tf.keras.models.load_model('autoencoder_model.keras')
+    model = tf.keras.models.load_model('autoencoder_model.h5')
     scaler = joblib.load('scaler.pkl')
     label_encoders = joblib.load('label_encoders.pkl')
     

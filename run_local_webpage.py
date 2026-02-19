@@ -10,7 +10,7 @@ app = Flask(__name__)
 # Load model and artifacts
 print("Loading model and artifacts for local webpage...")
 try:
-    model = tf.keras.models.load_model('autoencoder_model.keras')
+    model = tf.keras.models.load_model('autoencoder_model.h5')
     scaler = joblib.load('scaler.pkl')
     label_encoders = joblib.load('label_encoders.pkl')
 except Exception as e:
